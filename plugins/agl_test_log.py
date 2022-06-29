@@ -2,8 +2,8 @@ import pytest
 import os
 import re
 
-from agl_test_conf import REPORT_LOGS_DIR
-from agl_test_conf import TMP_LOGS_DIR
+from plugins.agl_test_conf import REPORT_LOGS_DIR
+from plugins.agl_test_conf import TMP_LOGS_DIR
 
 #WORK_DIR = "/work/duep/agl-test-gitlab/agl-release-tests/"
 

@@ -1,7 +1,7 @@
 import os
 
-from agl_test_conf import REPORT_LOGS_DIR
-from agl_test_conf import TMP_LOGS_DIR
+from plugins.agl_test_conf import REPORT_LOGS_DIR
+from plugins.agl_test_conf import TMP_LOGS_DIR
 
 
 #Check if there is the command that we needed

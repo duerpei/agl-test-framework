@@ -7,18 +7,21 @@ from plugins.agl_test_conf import BASE_LOGS_DIR
 from plugins.agl_test_conf import TMP_LOGS_DIR
 from plugins.agl_test_conf import REPORT_LOGS_DIR
 
-TEST_DIR = "/usr/AGL/agl-test/"
 
 @pytest.fixture(scope='session' ,autouse=True)
 def setup_compress_function():
+    #Before the test start, clean the env
     cmdline = "rm " + REPORT_LOGS_DIR + "/report.json"
     output = os.popen(cmdline)
     output.close()
+
     yield
+    #After the execution of all test sets, package the log
     cmdline = "cd " + BASE_LOGS_DIR + "; zip -q -r " + REPORT_LOGS_DIR + "/agl-test-log.zip  ./tmp-log/* ;"
     output = os.popen(cmdline)
     output.close()
-
+    
+    #Collect report.json from all test sets to generate a report.json for all the test sets
     cmd = "cd " + TMP_LOGS_DIR + "; find -name report.json>report_files"
     output = os.popen(cmd)
     output.close()
@@ -53,7 +56,7 @@ def setup_compress_function():
             }
             summary_data[test_name] = this_summary
 
-            summary_total = summary_passed + 1
+            summary_total = summary_total + 1
             if(test_status=="passed"):
                 summary_passed = summary_passed + 1
             elif(test_status=="failed"):

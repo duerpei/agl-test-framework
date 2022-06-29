@@ -1,7 +1,7 @@
 import os
 import json
-from agl_test_conf import REPORT_LOGS_DIR
-from agl_test_conf import TMP_LOGS_DIR
+from plugins.agl_test_conf import REPORT_LOGS_DIR
+from plugins.agl_test_conf import TMP_LOGS_DIR
 
 
 #Compress the tmp log to .zip, and store the zip file under REPORT_LOGS_DIR/THIS_TEST/
