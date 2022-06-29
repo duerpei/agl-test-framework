@@ -1,5 +1,3 @@
-import pytest
-
 #The dir of test_suits
 WORK_DIR = "/usr/AGL/agl-test/tests/"
 

@@ -1,7 +1,7 @@
 import os
 import json
-from agl_test_dir_conf import REPORT_LOGS_DIR
-from agl_test_dir_conf import TMP_LOGS_DIR
+from agl_test_conf import REPORT_LOGS_DIR
+from agl_test_conf import TMP_LOGS_DIR
 
 
 #Compress the tmp log to .zip, and store the zip file under REPORT_LOGS_DIR/THIS_TEST/
@@ -24,6 +24,7 @@ def get_case_status(test_cases_values_and_status):
     return case_status
 
 
+#Case_status is a dictionary type of data,Record the test name/id and final results of all test cases
 #Get the summary of the test case status, the result is like that:
 #Summary = [["collected",num1],["passed",num2],["failed",num3],["skipped",num4]]
 def get_summary(case_status):
@@ -58,7 +59,7 @@ def write_date_to_json(test_set_status,THIS_TEST,summary,case_status):
     with open(report_json,'w') as f:
         json.dump(data,f,indent=4,sort_keys=False)
     f.close()
-
+    '''
     summary_data = {
                         THIS_TEST:{
                                     'test_status': test_set_status,
@@ -72,3 +73,4 @@ def write_date_to_json(test_set_status,THIS_TEST,summary,case_status):
     with open(summary_json, 'a') as summary:
         json.dump(summary_data,summary,indent=4,sort_keys=False)
     summary.close()
+    '''
