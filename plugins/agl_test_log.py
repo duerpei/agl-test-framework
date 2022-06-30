@@ -5,12 +5,31 @@ import re
 from plugins.agl_test_conf import REPORT_LOGS_DIR
 from plugins.agl_test_conf import TMP_LOGS_DIR
 
-#WORK_DIR = "/work/duep/agl-test-gitlab/agl-release-tests/"
+#Process the log like and get test_cases_values_and_status
+#log : the path of source log
+#mode : the type of log to process
+def log_process_default(log,mode):
+    #default log looks like :
+    #   -> case_name: TEST-PASS
+    #   -> case_name: TEST-FAIL
+    #   -> case_name: TEST-SKIP
+    pattern_default_line = re.compile('\w+: TEST-\w+')
+    pattern_default_id = re.compile("\w+(?=:)")
+    pattern_default_value = re.compile('TEST-\w{2,}')
 
-#process the log like:  -> case_name: TEST-PASS
-#                       -> case_name: TEST-FAIL
-#                       -> case_name: TEST-SKIP
-def log_process_default(log):
+    #gnome_desktop_testing result log, looks like:
+    #   PASS: glib/tls-database.test
+    #   FAIL: glib/markup-escape.test
+    #   SKIP: glib/testname.test
+    pattern_gnome_line = re.compile('[PFS][AK][SI][SLP]\w*:\B.+test')
+    pattern_gnome_id = re.compile('(?<=/).+')
+    pattern_gnome_value = re.compile('\w+(?=:)')
+
+    pattern_list = [[pattern_default_line,pattern_default_id,pattern_default_value],[pattern_gnome_line,pattern_gnome_id,pattern_gnome_value]]
+    pattern_num = 0
+    if(mode == "gnome"):
+        pattern_num = 1
+
     file = open(log)
     count = 0
     test_cases_values_and_status = [["test_id","values","status"]]
@@ -18,31 +37,17 @@ def log_process_default(log):
         txt = file.readline()
         if not txt:
             break
-        res = re.search(r'\w+: TEST-\w+',txt)
+        res = re.search(pattern_list[pattern_num][0],txt)
         if(res != None):
             res = res.group()
-            l = ["test_id","values","failed"]
-            l[0] = re.search("\w+(?=:)",res).group()
-            l[1] = re.search(r'TEST-\w{2,}',res).group()
-            test_cases_values_and_status.append(l)
+            test_id = re.search(pattern_list[pattern_num][1],res)
+            value = re.search(pattern_list[pattern_num][2],res)
+            if(value != None and test_id !=None):
+                l = [" "," "," "]
+                l[0] = test_id.group()
+                l[1] = value.group()
+                test_cases_values_and_status.append(l)
 
     file.close()
     return test_cases_values_and_status
-
-#Process the log like: TEST-29 FAIL / TEST-30 OK
-def log_process_gnome_result(log):
-    #
-    #  to do process the log of gnome result!!!! 
-    #
-    file = open(log)
-    test_cases_values_and_status = [["test_id","values","status"]]
-    while True:
-        txt = file.readline()
-        if not txt:
-            break
-        ret = txt.find("TEST-")
-    file.close
-    test_cases_values_and_status = [["test_id","values","status"],["glib/bookmarkfile.test","PASS",""]]
-    return test_cases_values_and_status
-
 

@@ -64,7 +64,6 @@ def setup_compress_function():
             else:
                 summary_skipped = summary_skipped + 1
         f.close()
-    print(summary_data)
     summary_data["summary"] = {
         "summary_total": summary_total,
         "summary_passed": summary_passed,
@@ -77,5 +76,5 @@ def setup_compress_function():
         json.dump(summary_data,summary_file,indent=4,sort_keys=False)
     summary_file.close()
 
-    # to do:
+    # TODO:
     # Upload the final log to a shared directory or other location
