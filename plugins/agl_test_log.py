@@ -39,7 +39,7 @@ gnome_desktop_testing log formate:
     SKIP: glib/testname.test
 '''
 def log_process_gnome_desktop_testing(log):
-    pattern = '^(PASS|FAIL|SKIP.+?): (.+test?)$'
+    pattern = '^(FAIL|PASS|SKIP.+?): (.+test?)'
     parse_result = log_parse(log, pattern)
     test_cases_values_and_status = [["test_id","values","status"]]
     
