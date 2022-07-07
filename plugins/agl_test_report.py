@@ -1,14 +1,16 @@
 import os
 import json
+import shutil
+
 from plugins.agl_test_conf import REPORT_LOGS_DIR
 from plugins.agl_test_conf import TMP_LOGS_DIR
 
 
 #Compress the tmp log to .zip, and store the zip file under REPORT_LOGS_DIR/THIS_TEST/
 def log_compress(THIS_TEST):
-    cmdline = "cd " + TMP_LOGS_DIR + ";" + "zip -q -r " + REPORT_LOGS_DIR + THIS_TEST + "/" + THIS_TEST + ".zip " + "./" +THIS_TEST
-    output = os.popen(cmdline)
-    output.close()
+    base_name = REPORT_LOGS_DIR + THIS_TEST + "/" + THIS_TEST
+    root_dir = TMP_LOGS_DIR + THIS_TEST
+    shutil.make_archive(base_name,'zip',root_dir)
 
 
 #Get all test cases status 

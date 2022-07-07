@@ -2,6 +2,7 @@
 import pytest
 import os
 import json
+import shutil
 
 from plugins.agl_test_conf import BASE_LOGS_DIR
 from plugins.agl_test_conf import TMP_LOGS_DIR
@@ -17,10 +18,10 @@ def setup_compress_function():
 
     yield
     #After the execution of all test sets, package the log
-    cmdline = "cd " + BASE_LOGS_DIR + "; zip -q -r " + REPORT_LOGS_DIR + "/agl-test-log.zip  ./tmp-log/* ;"
-    output = os.popen(cmdline)
-    output.close()
-    
+    base_name = REPORT_LOGS_DIR + "/agl-test-log"
+    root_dir = TMP_LOGS_DIR
+    shutil.make_archive(base_name,'zip',root_dir)
+
     #Collect report.json from all test sets to generate a report.json for all the test sets
     cmd = "cd " + TMP_LOGS_DIR + "; find -name report.json>report_files"
     output = os.popen(cmd)

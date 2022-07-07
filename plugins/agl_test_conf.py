@@ -2,7 +2,7 @@
 WORK_DIR = "/usr/AGL/agl-test/tests/"
 
 #The dir for saving log
-BASE_LOGS_DIR = "/usr/AGL/agl-test/logs/"
+BASE_LOGS_DIR = "/var/run/agl-test/logs/"
 
 #The dir for tmp log
 TMP_LOGS_DIR = BASE_LOGS_DIR + "tmp-log/"
