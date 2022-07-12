@@ -1,9 +1,5 @@
 import pytest
-import os
 import re
-
-from plugins.agl_test_conf import REPORT_LOGS_DIR
-from plugins.agl_test_conf import TMP_LOGS_DIR
 
 '''
 Process the log and init test_cases_values_and_status.
