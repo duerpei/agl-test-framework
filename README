@@ -2,25 +2,26 @@
 
 This repository stores the code of agl-test framework
 
-##Building
-
-Before compiling, add "agl-test" to the source option to compile
-the agl-test into the image.
-After that, load the compiled image onto the board.
+Refer to the compilation document of AGL community
+you can compile "agl test" into the image that you need
 
 ##Running
 
-Run the following command to execute the test set:
-agl-test
+After loading the image onto the board, you can run the test set
 
-Or run the test set list of the specified marker
-agl-test -m marker_name
+###Run all of the test sets:
 
-You could also directly specify the name of the test set file to run
-agl-test test_file_name
+    agl-test
+
+###Run the test set list of the specified marker
+
+    agl-test -m marker_name
+
+###Run the specified test set
+
+    agl-test test_file_name
 
 ##Directory Structure
-The directory structure is as follows:
 
 ├── agl-test
 ├── conftest.py
@@ -33,7 +34,18 @@ The directory structure is as follows:
 ├── pytest.ini
 └── README
 
-"agl-test" is the command to start the test
-"conftest.py" fixture function define
-Under the "plugins" directory is a general script file
-"pytest.ini" is mainly used for the selection of test sets
+###agl-test:
+
+The command to start the test
+
+###conftest.py:
+
+Fixture function define
+
+###plugins:
+
+General script file
+
+###pytest.ini:
+
+The file is mainly used for the selection of test sets
